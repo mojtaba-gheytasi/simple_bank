@@ -50,7 +50,7 @@ func TestUpdateAccount(t *testing.T) {
 		Currency: "EUR",
 	}
 	account1 := createTestAccount(t, arg)
-	err1 := testQueries.UpdateAccount(context.Background(), UpdateAccountParams{
+	_, err1 := testQueries.UpdateAccount(context.Background(), UpdateAccountParams{
 		ID: account1.ID,
 		Balance: 990,
 	})

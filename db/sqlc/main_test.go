@@ -12,23 +12,25 @@ const dbDriver = "postgres"
 const dsn = "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable"
 
 var testQueries *Queries
+var testDb *sql.DB
 
 func TestMain(m *testing.M) {
-	db, err := sql.Open(dbDriver, dsn)
+	var err error
+	testDb, err = sql.Open(dbDriver, dsn)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := db.Ping(); err != nil {
+	if err := testDb.Ping(); err != nil {
 		log.Fatal(err)
 	}
 
-	testQueries = New(db)
+	testQueries = New(testDb)
 
 	code := m.Run()
 
-	db.Close()
+	testDb.Close()
 
 	os.Exit(code)
 

@@ -100,8 +100,6 @@ func TestTransferTx(t *testing.T) {
 		require.True(t, k >= 0 && k <= n)
 		require.NotContains(t, existed, k)
 		existed[k] = true
-
-		fmt.Print(">> tx:", fromAccount.Balance, toAccount.Balance)
 	}
 
 	updatedAccount1, err := testQueries.GetAccount(context.Background(), account1.ID)
@@ -112,8 +110,6 @@ func TestTransferTx(t *testing.T) {
 
 	require.Equal(t, account1.Balance - int64(n) * amount, updatedAccount1.Balance)
 	require.Equal(t, account2.Balance + int64(n) * amount, updatedAccount2.Balance)
-
-	fmt.Print(">> after:", updatedAccount1.Balance, updatedAccount2.Balance)
 }
 
 func TestTransferTxDeadlock(t *testing.T) {
@@ -129,8 +125,6 @@ func TestTransferTxDeadlock(t *testing.T) {
 		Balance: 50,
 		Currency: "EUR",
 	})
-
-	fmt.Print(">> before:", account1.Balance, account2.Balance)
 
 	n := 10
 	amount := int64(100)

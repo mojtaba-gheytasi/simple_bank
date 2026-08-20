@@ -1,6 +1,3 @@
-DB_URL=postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable
-# migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
-
 postgres:
 	docker run --name db -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:18.4-alpine3.24
 
@@ -19,4 +16,7 @@ migratedown:
 test:
 	go test -v -cover ./...
 
-.PHONY: postgres createdb dropdb migrateup migratedown
+server:
+	go run main.go
+
+.PHONY: postgres createdb dropdb migrateup migratedown test server
